@@ -186,7 +186,7 @@
 //--------------------------------------------------------------
 //object literal syntax
 
-const weekdays = ['mon', 'thu', 'sat'];
+const weekdays = ['mon', 'tue', 'wen', 'thu', 'fri', 'sat', 'sun'];
 const openingHours = {
   [weekdays[1]]: {
     open: 12,
@@ -223,3 +223,81 @@ const restaurant = {
 //WITH optional chaining '.mon?.open'
 
 console.log(restaurant.openingHours.mon?.open);
+
+const days = ['mon', 'tue', 'wen', 'thu', 'fri', 'sat', 'sun'];
+
+for (const day of days) {
+  console.log(day);
+  const open = restaurant.openingHours[day]?.open ?? 'closed';
+  console.log(`on ${day}, we are open at ${open}`);
+}
+
+const users = [];
+console.log(users[0]?.name ?? 'User array empty');
+console.log('---------new--------');
+if (users.length > 0) console.log(users[0].name);
+else console.log('user array empty');
+
+//LOOP THROUGH PROPERTIES
+
+// for (const day of Object.keys(openingHours)) {
+//   console.log(day);
+// }
+//the same as above //PROPERTY NAMES
+// const properties = Object.keys(openingHours);
+
+// let openStr = `We are open on ${properties.length} days:`;
+// for (const day of properties) {
+//   openStr = openStr + `${day},`;
+// }
+// console.log(openStr);
+//entries
+
+const entries = Object.entries(openingHours);
+console.log(entries);
+
+for (const [key, { open, close }] of entries) {
+  console.log(`On ${key} we open at ${open} and close at ${close}`);
+}
+console.log('-----football chalenge-----');
+
+const game = {
+  team1: 'Bayern Munich',
+  team2: 'Borrussia Dortmund',
+  players: [
+    [
+      'Neuer',
+      'Pavard',
+      'Martinez',
+      'Alaba',
+      'Davies',
+      'Kimmich',
+      'Goretzka',
+      'Coman',
+      'Muller',
+      'Gnarby',
+      'Lewandowsli',
+    ],
+    [
+      'Burki',
+      'Schulz',
+      'Hummels',
+      'Akanji',
+      'Hakimi',
+      'Weigl',
+      'Witsel',
+      'Hazard',
+      'Brandt',
+      'Sancho',
+      'Gotze',
+    ],
+  ],
+  score: '4.0',
+  scored: ['Lewandowsli', 'Gnarby', 'Lewandowsli', 'Hummels'],
+  date: 'Nov 9th, 2022',
+  odds: {
+    team1: 1.33,
+    x: 3.25,
+    team2: 6.5,
+  },
+};
