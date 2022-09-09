@@ -183,6 +183,24 @@
 // rest2.owner &&= '<ANONYMOUS>';
 // console.log(rest1);
 // console.log(rest2);
+//--------------------------------------------------------------
+//object literal syntax
+
+const weekdays = ['mon', 'thu', 'sat'];
+const openingHours = {
+  [weekdays[1]]: {
+    open: 12,
+    close: 22,
+  },
+  fri: {
+    open: 11,
+    close: 23,
+  },
+  sat: {
+    open: 0, // Open 24 hours
+    close: 24,
+  },
+};
 
 const restaurant = {
   name: 'Classico Italiano',
@@ -190,19 +208,18 @@ const restaurant = {
   categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
   starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
   mainMenu: ['Pizza', 'Pasta', 'Risotto'],
-
-  openingHours: {
-    thu: {
-      open: 12,
-      close: 22,
-    },
-    fri: {
-      open: 11,
-      close: 23,
-    },
-    sat: {
-      open: 0, // Open 24 hours
-      close: 24,
-    },
+  //ES6 ENHANCED OBJECT LITERALS
+  openingHours,
+  //WE CHANGED 'order: function() ' to a easy way
+  order(starterIndex, mainIndex) {
+    return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
+  },
+  orderPasta(ing1, ing2, ing3) {
+    console.log(
+      `Here is your declicious oasta with ${ing1}, ${ing2} and ${ing3}`
+    );
   },
 };
+//WITH optional chaining '.mon?.open'
+
+console.log(restaurant.openingHours.mon?.open);
