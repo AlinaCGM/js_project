@@ -301,3 +301,20 @@ const game = {
     team2: 6.5,
   },
 };
+
+for (const [i, player] of game.scored.entries())
+  console.log(`Goal ${i + 1}: ${player}`);
+
+// for (const [i, plays] of game.players[0].entries())
+//   console.log(`Hello ${i + 1} ${plays}`);
+
+const calcAv = Object.values(game.odds);
+let average = 0;
+for (const y of calcAv) average += y;
+average /= calcAv.length;
+console.log(average);
+
+for (const [team, odd] of Object.entries(game.odds)) {
+  const teamStr = team === 'x' ? 'draw' : `victory ${game[team]}`;
+  console.log(`Odd of ${teamStr}${odd}`);
+}
