@@ -354,7 +354,78 @@ rest
 console.log(rest.get('name'));
 console.log(rest.get(true));
 
-const time = 21;
-console.log(rest.get(time >= rest.get('open') && time < rest.get('closed')));
+const times = 21;
+console.log(rest.get(times >= rest.get('open') && times < rest.get('closed')));
 rest.delete(2);
 console.log(rest);
+
+console.log('----QUESTION-------');
+const question = new Map([
+  ['question', 'what is the best programming language?'],
+  [1, 'C'],
+  [2, 'jAVA'],
+  [3, 'JS'],
+  [true, 'correct'],
+  [false, 'try again'],
+]);
+// console.log(question);
+// const openingHours = {
+//   thu: {
+//     open: 12,
+//     close: 22,
+//   },
+//   fri: {
+//     open: 12,
+//     close: 22,
+//   },
+//   sat: {
+//     open: 12,
+//     close: 22,
+//   },
+// };
+// console.log(Object.entries(openingHours));
+// const hoursMap = new Map(Object.entries(openingHours));
+// console.log(hoursMap);
+
+// console.log(question.get('question'));
+// for (const [key, value] of question) {
+//   if (typeof key === 'number') console.log(`Answer ${key}: ${value}`);
+// }
+// // const answer = Number(prompt('Your answer'));
+// // console.log(answer);
+
+// // console.log(question.get(question.get('correct') === answer));
+
+// //Convert map to array
+// console.log([...question]);
+// console.log([...question.keys()]);
+// console.log([...question.values()]);
+
+console.log('-----FOOTBALL GAME------');
+const gameEvents = new Map([
+  [17, '⚽️ GOAL'],
+  [36, '🔁 Substitution'],
+  [47, '⚽️ GOAL'],
+  [61, '🔁 Substitution'],
+  [64, '🔶 Yellow card'],
+  [69, '🔴 Red card'],
+  [70, '🔁 Substitution'],
+  [72, '🔁 Substitution'],
+  [76, '⚽️ GOAL'],
+  [80, '⚽️ GOAL'],
+  [92, '🔶 Yellow card'],
+]);
+
+const events = [...new Set(gameEvents.values())];
+console.log(events);
+gameEvents.delete('🔶 Yellow card');
+console.log(gameEvents);
+
+const time = [...gameEvents.keys()].pop(); //it takes the last element out of the array, even if it was deleted
+console.log(time);
+console.log(`An event happened , pn average, every ${time / gameEvents.size}`);
+
+for (const [min, event] of gameEvents) {
+  const half = min <= 45 ? 'FIRST' : 'SECOND';
+  console.log(`[${half}HALF] ${min}: ${event}`);
+}
