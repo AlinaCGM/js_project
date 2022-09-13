@@ -339,3 +339,22 @@ const staffUnique = [...new Set(staff)];
 console.log(staffUnique);
 
 console.log('-----MAPS-------');
+const rest = new Map();
+rest.set('name', 'Classico Italiano');
+rest.set(1, 'Italy');
+rest.set(2, 'Portugal'); // this method apdates MAPS and returns the MAP
+console.log(rest.set(2, 'Portugal'));
+
+rest
+  .set('categories', ['Pasta', 'Pizza', 'Pizza', 'Risotto', 'Pasta'])
+  .set('open', 11)
+  .set('close', 23)
+  .set(true, 'we are open')
+  .set(false, 'we are closed');
+console.log(rest.get('name'));
+console.log(rest.get(true));
+
+const time = 21;
+console.log(rest.get(time >= rest.get('open') && time < rest.get('closed')));
+rest.delete(2);
+console.log(rest);
