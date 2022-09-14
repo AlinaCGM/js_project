@@ -429,3 +429,68 @@ for (const [min, event] of gameEvents) {
   const half = min <= 45 ? 'FIRST' : 'SECOND';
   console.log(`[${half}HALF] ${min}: ${event}`);
 }
+
+console.log('----STRING-----');
+
+const airline = 'Tap Air Portugal';
+
+const plane = 'A320';
+console.log(plane[0]);
+console.log(plane[1]);
+console.log(plane[2]);
+console.log(plane[3]);
+console.log(plane.length);
+console.log(airline.indexOf('r'));
+console.log(airline.lastIndexOf('r'));
+console.log(airline.slice(4));
+console.log(airline.slice(airline.lastIndexOf(' ') + 1));
+console.log(airline.slice(-5));
+console.log(airline.slice(-1));
+
+const checkMiddleSeat = function (seat) {
+  const s = seat.slice(-1);
+  console.log(s);
+  if (s === 'B' || s === 'E') console.log('You are loser');
+  else console.log('Winner');
+};
+
+checkMiddleSeat('11B');
+checkMiddleSeat('23C');
+checkMiddleSeat('3E');
+
+console.log(new String('alina'));
+
+//FIX capitalization in capital name
+
+const alina = 'samoteev';
+console.log(alina.toLowerCase());
+console.log(alina.toUpperCase());
+
+const passenger = 'jOnAs';
+const passengerLower = passenger.toLowerCase();
+const passengerCorrect =
+  passengerLower[0].toUpperCase() + passengerLower.slice(1);
+console.log(passengerCorrect);
+
+//Comparing emails
+const email = 'hello@alina';
+const loginEmail = '  Hello@Alina \n';
+console.log(loginEmail);
+const lowerEmail = loginEmail.toLowerCase();
+const trimmedEmail = lowerEmail.trim();
+//orr shorter way
+const normalizedEmail = loginEmail.toLowerCase().trim();
+console.log(normalizedEmail);
+console.log(email === normalizedEmail);
+
+//REPLACING
+
+const priceGB = '288,97£';
+const priceUS = priceGB.replace('£', '$').replace(',', '.');
+console.log(priceUS);
+const announcement =
+  'All passenger come to boarding door 23. Boarding door 23!';
+console.log(announcement.replaceAll(announcement, 'alina balerina'));
+console.log(announcement.replace(/door/g, 'gate')); //replace globaly this word to 'gate'
+
+console.log('----NEXT example-----');
