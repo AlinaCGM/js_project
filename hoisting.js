@@ -494,3 +494,33 @@ console.log(announcement.replaceAll(announcement, 'alina balerina'));
 console.log(announcement.replace(/door/g, 'gate')); //replace globaly this word to 'gate'
 
 console.log('----NEXT example-----');
+
+const planes = 'A320neo';
+console.log(planes.includes('A320')); // search
+console.log(planes.startsWith('A3'));
+if (planes.startsWith('A3') && planes.endsWith('neo')) {
+  console.log('very good');
+}
+
+const checkBaggage = function (item) {
+  const baggage = item.toLowerCase();
+  console.log(baggage);
+  if (baggage.includes('knife') || baggage.includes('gun')) {
+    console.log('forbidden baggage');
+  } else {
+    ('welcome on board');
+  }
+};
+checkBaggage('I have a laptop ,food and pocket Knife');
+checkBaggage('Socks and camera');
+checkBaggage('snacks and Gun');
+
+console.log('---split method---');
+console.log('a+very+nice+string'.split('+'));
+console.log('alina bogza'.split(' '));
+
+const [firstName, lastName] = 'Alina Samoteev'.split(' ');
+const newName = ['Ms.', firstName, lastName.toUpperCase()].join(' ');
+console.log(newName);
+
+console.log('------CAPITALIZATION------');
