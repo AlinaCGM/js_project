@@ -524,3 +524,32 @@ const newName = ['Ms.', firstName, lastName.toUpperCase()].join(' ');
 console.log(newName);
 
 console.log('------CAPITALIZATION------');
+const capitalizeName = function (name) {
+  const names = name.split(' ');
+
+  const namesUpper = [];
+
+  for (const item of names) {
+    namesUpper.push(item[0].toUpperCase() + item.slice(1));
+    //or other way
+    //namesUpper.push(item.replace(n[0],n[0].toUpperCase()))
+  }
+  console.log(namesUpper.join(' '));
+};
+capitalizeName('jessica and smith david');
+capitalizeName('jonas duglas');
+
+console.log('---padding---');
+const message = 'Go to gate 23';
+console.log(message.padStart(25, '*').padEnd(30, '+'));
+
+console.log('---MASk credit card---');
+const maskCreditCard = function (number) {
+  const str = number + ''; //or String()//when one of the       operants is a string, it will convert all of them to string
+  const last = str.slice(-4);
+  return last.padStart(str.length, '*');
+};
+console.log(maskCreditCard(548789));
+console.log(maskCreditCard('123456789'));
+
+console.log('---REPEAT----');
