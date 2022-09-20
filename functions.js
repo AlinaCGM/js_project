@@ -201,3 +201,26 @@ runOnce();
 
 //closures-------
 console.log('-----CLOSURES-----');
+
+const secureBooking = function () {
+  let passengerCount = 0;
+  return function () {
+    passengerCount++;
+    console.log(`${passengerCount} passengers`);
+  };
+};
+const booker = secureBooking(2);
+
+//closure makes a function remember all the variables that existed at the function's birthplace essentially
+console.dir(booker);
+//.....new example----
+
+let f;
+const g = function () {
+  const a = 23;
+  f = function () {
+    console.log(a * 2);
+  };
+};
+g();
+f();
