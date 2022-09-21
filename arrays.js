@@ -2,6 +2,99 @@
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
+// LECTURES
+
+// const currencies = new Map([
+//   ['USD', 'United States dollar'],
+//   ['EUR', 'Euro'],
+//   ['GBP', 'Pound sterling'],
+// ]);
+
+//const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+/////////////////////////////////////////////////
+
+//slice method ---------- it just copied the array
+console.log('---slice method---');
+let arr = ['a', 'b', 'c', 'd', 'e'];
+console.log(arr.slice(2));
+console.log(arr.slice(2, 4));
+console.log(arr.slice(-2));
+console.log(arr.slice(-1));
+console.log(arr.slice(1, -2));
+//spred operator
+console.log([...arr]);
+//splice method   ----- it takes of the items from array for good
+
+//REVERSE method -----reverse the array for good
+arr = ['a', 'b', 'c', 'd', 'e'];
+const arr2 = ['j', 't', 'i', 'd'];
+console.log(arr2.reverse());
+
+//CONCAT -------split smth together
+const letters = arr.concat(arr2);
+console.log(letters);
+///the same thing as below
+console.log([...arr, ...arr2]);
+
+//JOIN   ------ adds smth you want
+console.log(letters.join('-'));
+
+//new 'at method'
+console.log('---new at method---');
+const arrr = [23, 11, 64];
+console.log(arrr[0]);
+console.log(arrr.at(0));
+
+//to pick the last element
+console.log(arrr[arrr.length - 1]);
+console.log(arrr.slice(-1)[0]);
+console.log(arrr.at(-1));
+
+//////////LOOPING ARRAY FOR EACH
+console.log('---for loop----');
+
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+for (const [i, movement] of movements.entries()) {
+  //entries() gives the access to the current index
+  if (movement > 0) {
+    console.log(`Movement ${i + 1}: You deposited ${movement}`);
+  } else {
+    console.log(`You withdrew ${Math.abs(movement)}`);
+  }
+}
+console.log('---FOREACH loop----');
+
+movements.forEach(function (mov, i, arr) {
+  //the fisrt shoud be the current element, 2-current index,3-entire array
+  if (mov > 0) {
+    console.log(`Movement ${i + 1}: You deposited ${mov}`);
+  } else {
+    console.log(`You withdrew ${Math.abs(mov)}`);
+  }
+});
+
+console.log('----MAP---');
+const currencies = new Map([
+  ['USD', 'United States dollar'],
+  ['EUR', 'Euro'],
+  ['GBP', 'Pound sterling'],
+]);
+currencies.forEach(function (value, key, map) {
+  console.log(`${key}:${value}`);
+});
+console.log('----SET---');
+
+const currenciesUnique = new Set(['USD', 'EUR', 'GBP', 'GBP']);
+currenciesUnique.forEach(function (value, _, map) {
+  console.log(`${value}:${value}`);
+});
+
+console.log('-----project----');
+
+/////////////////////////////////////////////////
+/////////////////////////////////////////////////
 // BANKIST APP
 
 // Data
@@ -61,53 +154,16 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
-/////////////////////////////////////////////////
-/////////////////////////////////////////////////
-// LECTURES
-
-const currencies = new Map([
-  ['USD', 'United States dollar'],
-  ['EUR', 'Euro'],
-  ['GBP', 'Pound sterling'],
-]);
-
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
-
-/////////////////////////////////////////////////
-
-//slice method ---------- it just copied the array
-console.log('---slice method---');
-let arr = ['a', 'b', 'c', 'd', 'e'];
-console.log(arr.slice(2));
-console.log(arr.slice(2, 4));
-console.log(arr.slice(-2));
-console.log(arr.slice(-1));
-console.log(arr.slice(1, -2));
-//spred operator
-console.log([...arr]);
-//splice method   ----- it takes of the items from array for good
-
-//REVERSE method -----reverse the array for good
-arr = ['a', 'b', 'c', 'd', 'e'];
-const arr2 = ['j', 't', 'i', 'd'];
-console.log(arr2.reverse());
-
-//CONCAT -------split smth together
-const letters = arr.concat(arr2);
-console.log(letters);
-///the same thing as below
-console.log([...arr, ...arr2]);
-
-//JOIN   ------ adds smth you want
-console.log(letters.join('-'));
-
-//new 'at method'
-console.log('---new at method---');
-const arrr = [23, 11, 64];
-console.log(arrr[0]);
-console.log(arrr.at(0));
-
-//to pick the last element
-console.log(arrr[arrr.length - 1]);
-console.log(arrr.slice(-1)[0]);
-console.log(arrr.at(-1));
+const displayMovements = function (movements) {
+  containerMovements.innerHTML = ''; //removes all previous HTML
+  movements.forEach(function (mov, i) {
+    const type = mov > 0 ? 'deposit' : 'withdrawal';
+    const html = `
+    <div class="movements__row">
+    <div class="movements__type movements__type--${type}">${i + 1}${type}</div>
+    <div class="movements__value">${mov}</div>
+    </div>`;
+    containerMovements.insertAdjacentHTML('afterbegin', html); //adds new HTML, WHICH we just corrected from our existed HTML
+  });
+};
+displayMovements(account1.movements);
