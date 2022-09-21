@@ -102,8 +102,7 @@
 // const badNewArr = [1, 2, arr[0], arr[1], arr[2]];
 // console.log(badNewArr);
 // //OR!!
-// const newArr = [1, 2, ...arr];
-// console.log(newArr);
+//
 
 // const newMenu = [...restaurant.mainMenu, 'Gnocci'];
 // console.log(newMenu);
