@@ -117,6 +117,37 @@ console.log('-----project----');
 /////////////////////////////////////////////////
 // BANKIST APP
 
+////-----MAP----
+console.log('-----MAP----');
+const eurToUsd = 1.1;
+// const movementsUSD = movements.map(function (mov) {
+//   return Math.abs(Math.trunc(mov * eurToUsd));
+// }); //we need a call back function
+const movementsUSD = movements.map(mov => Math.abs(Math.trunc(mov * eurToUsd)));
+console.log(movements);
+console.log(movementsUSD);
+
+//---the same with forEach loop
+const movementsUSDfor = [];
+for (const mov of movements) movementsUSDfor.push(mov * eurToUsd);
+console.log(movementsUSDfor);
+
+// const movementsDescriptions = movements.map((mov, i) => {
+//   if (mov > 0) {
+//     return `Movement ${i + 1}: You deposeted ${mov}`;
+//   } else {
+//     return `Movements ${i + 1}: You withdrew ${Math.abs(mov)}`;
+//   }
+// });
+
+const movementsDescriptions = movements.map(
+  (mov, i) =>
+    `Movements ${i + 1}: You ${mov > 0 ? 'deposited' : 'withdrew'} ${Math.abs(
+      mov
+    )}`
+);
+
+console.log(movementsDescriptions);
 // Data
 const account1 = {
   owner: 'Jonas Schmedtmann',
@@ -188,4 +219,18 @@ const displayMovements = function (movements) {
   });
 };
 displayMovements(account1.movements);
-console.log(containerMovements.innerHTML);
+const createUsernames = function (accs) {
+  accs.forEach(function (acc) {
+    acc.username = acc.owner
+      .toLowerCase()
+      .split(' ')
+      .map(name => name[0])
+      .join('');
+  });
+};
+const user = 'Steven Thomas Williams'; //stw
+
+createUsernames(accounts);
+
+// FILTER METHOD
+console.log('---FILTER METHOD-----');
