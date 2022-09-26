@@ -4,6 +4,26 @@
 /////////////////////////////////////////////////
 // LECTURES
 
+/////TEST-------------------------------------------
+// const arrs = [2, 5, 8, 4];
+
+// const firstMap = arrs.map(el => el * 3);
+// console.log(firstMap);
+
+// const secondForEach = arrs.forEach(el => el * 4);
+
+// console.log(firstMap, secondForEach);
+// console.log('------flatten array-------');
+// let carr = [
+//   [1, 2],
+//   [3, 4],
+//   [5, 6, [7, 8], 9],
+//   [10, 11, 12],
+// ];
+// let flattened = carr.flat(2);
+// console.log(flattened);
+//----------------------------------------------
+
 // const currencies = new Map([
 //   ['USD', 'United States dollar'],
 //   ['EUR', 'Euro'],
@@ -231,6 +251,65 @@ const createUsernames = function (accs) {
 const user = 'Steven Thomas Williams'; //stw
 
 createUsernames(accounts);
+//
+const calcDisplayBalance = function (movements) {
+  const balance = movements.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = `${balance} EUR`;
+};
+calcDisplayBalance(account1.movements);
 
 // FILTER METHOD
 console.log('---FILTER METHOD-----');
+//call back function
+const deposits = movements.filter(function (mov) {
+  return mov > 0;
+});
+console.log(movements);
+console.log(deposits);
+//and the same with for of loop----
+
+const depositFor = [];
+for (const mov of movements) if (mov > 0) depositFor.push(mov);
+console.log(depositFor);
+
+// const withdrawals = movements.filter(function (mov) {
+//   return mov < 0;
+// });
+const withdrawals = movements.filter(mov => mov < 0);
+console.log(withdrawals);
+
+//------Reduce method
+console.log('------Reduce method------');
+// accumulator is like a snowball
+// const balance = movements.reduce(function (accomulator, currel, i, arr) {
+//   return accomulator + currel;
+// }, 0);
+// console.log(balance);
+//REDUCE METH. has 2 param: callback function and the initial value of the accumulator.
+const balance = movements.reduce(
+  (accomulator, currel) => accomulator + currel,
+  0
+);
+console.log(balance);
+
+//and the same with FOR  loop
+let balance2 = 0;
+for (const mov of movements) balance2 += mov;
+console.log(balance2);
+//Maximum value
+console.log('-----//Maximum value');
+
+const max = movements.reduce((acc, mov) => {
+  if (acc > mov) return acc;
+  else return mov;
+}, movements[0]);
+console.log(max);
+
+////Chaining method
+console.log('-------Chaining method--------');
+//const eurToUsd = 1.1;
+
+const totalDepositsUSD = movements
+  .filter(mov => mov > 0)
+  .map(mov => mov * eurToUsd)
+  .reduce((acc, mov) => acc + mov, 0);
