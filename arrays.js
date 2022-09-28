@@ -270,6 +270,8 @@ const user = 'Steven Thomas Williams'; //stw
 //
 
 createUsernames(accounts);
+
+// UPDATE UI
 const updateUI = function (acc) {
   // Display movements
   displayMovements(acc.movements);
@@ -321,6 +323,20 @@ btnTransfer.addEventListener('click', function (e) {
     updateUI(currentAccount);
   }
 });
+
+btnLoan.addEventListener('click', function (e) {
+  e.preventDefault();
+  const amount = Number(inputLoanAmount.value);
+  if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
+    //Add movement
+    currentAccount.movements.push(amount);
+    //Update UI
+    updateUI(currentAccount);
+    //CLEAR FIELD
+    inputLoanAmount.value = '';
+  }
+});
+
 //DELETE ACCOUNT
 btnClose.addEventListener('click', function (e) {
   e.preventDefault();
@@ -428,6 +444,52 @@ console.log(firstWithdrawal);
 const account = accounts.find(acc => acc.owner === 'Jessica Davis');
 console.log(account);
 
-// includes method &
+// includes method & some & every
 console.log(movements);
 console.log(movements.includes(-130)); //check on equality
+
+//SOME
+///check if any element meets the condition
+const anyDeposits = movements.some(mov => mov > 0);
+console.log(anyDeposits);
+
+//EVERY
+console.log(movements.every(mov => mov > 0));
+
+//Separate callback
+const deposit = mov => mov > 0;
+console.log(movements.some(deposit));
+console.log(movements.every(deposit));
+console.log(movements.filter(deposit));
+//FLAT method
+const ars = [[1, 2, 3], [4, 5, 6], 7, 8];
+console.log(ars.flat());
+const arsDeep = [
+  [
+    [1, 2, 3],
+    [4, 5, 6],
+  ],
+  7,
+  8,
+];
+console.log(arsDeep.flat(2));
+//THE LONG WAY
+
+// const accountMovements = accounts.map(acc => acc.movements);
+// console.log(accountMovements);
+// const allMovements = accountMovements.flat();
+// console.log(allMovements);
+// const overalBalance = allMovements.reduce((acc, mov) => acc + mov, 0);
+
+//THE SHORT WAY
+const overalBalance = accounts
+  .map(acc => acc.movements)
+  .flat()
+  .reduce((acc, mov) => acc + mov, 0);
+console.log(overalBalance);
+
+//flatMap method
+const overalBalance2 = accounts
+  .flatMap(acc => acc.movements) //goes just 1 level deep!!
+  .reduce((acc, mov) => acc + mov, 0);
+console.log(overalBalance2);
