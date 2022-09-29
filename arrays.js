@@ -493,3 +493,57 @@ const overalBalance2 = accounts
   .flatMap(acc => acc.movements) //goes just 1 level deep!!
   .reduce((acc, mov) => acc + mov, 0);
 console.log(overalBalance2);
+
+//Sorting Arrays
+console.log('---//Sorting Arrays-----');
+/////with STRINGS
+const owners = ['Jonas', 'Zach', 'Adam', 'Martha']; //it mutates the original array
+console.log(owners.sort());
+/////with NUMBERS
+console.log(movements);
+console.log(movements.sort()); //it sorts as it would be a string, not numbers
+
+//fill method for Empty array
+const x = new Array(7); //fills in the array
+x.fill(1);
+console.log(x);
+
+//Array.from
+const y = Array.from({ length: 7 }, () => 1);
+console.log(y);
+const z = Array.from({ length: 7 }, (_, i) => i + 1);
+console.log(z);
+const j = Array.from(
+  { length: 100 },
+  (cur, i) => i + Math.trunc(Math.random())
+);
+console.log(j);
+
+const [...a] = 'alina';
+console.log(a);
+
+labelBalance.addEventListener('click', function () {
+  const movementsUI = Array.from(document.querySelectorAll('.movements_value'));
+  console.log(movementsUI.map(el => el.textContent.replace('€', '¥')));
+});
+//
+//
+//
+// NEW CHALLENGE
+console.log('----NEW CHALLENGE-----');
+
+const bankDepositSum = accounts
+  .flatMap(acc => acc.movements)
+  .filter(mov => mov > 0)
+  .reduce((sum, cur) => sum + cur, 0);
+console.log(bankDepositSum);
+
+// const bankDollar = accounts
+//   .flatMap(acc => acc.movements)
+//   .filter(mov => mov >= 1000).length;
+// console.log(bankDollar);
+
+const bankDollar = accounts
+  .flatMap(acc => acc.movements)
+  .reduce((count, cur) => (cur >= 1000 ? ++count : count), 0); //++ before accumulator if it starts from 0, otherwise it will still remain 0. OR just +1
+console.log(bankDollar);
