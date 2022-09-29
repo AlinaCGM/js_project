@@ -1,211 +1,6 @@
-'use strict';
-
-///////////////////////////////////////
-// Coding Challenge #4
-
-/* 
-Julia and Kate are still studying dogs, and this time they are studying if dogs are eating too much or too little.
-Eating too much means the dog's current food portion is larger than the recommended portion, and eating too little is the opposite.
-Eating an okay amount means the dog's current food portion is within a range 10% above and 10% below the recommended portion (see hint).
-
-1. Loop over the array containing dog objects, and for each dog, calculate the recommended food portion and add it to the object as a new property. Do NOT create a new array, simply loop over the array. Forumla: recommendedFood = weight ** 0.75 * 28. (The result is in grams of food, and the weight needs to be in kg)
-2. Find Sarah's dog and log to the console whether it's eating too much or too little. HINT: Some dogs have multiple owners, so you first need to find Sarah in the owners array, and so this one is a bit tricky (on purpose) 🤓
-3. Create an array containing all owners of dogs who eat too much ('ownersEatTooMuch') and an array with all owners of dogs who eat too little ('ownersEatTooLittle').
-4. Log a string to the console for each array created in 3., like this: "Matilda and Alice and Bob's dogs eat too much!" and "Sarah and John and Michael's dogs eat too little!"
-5. Log to the console whether there is any dog eating EXACTLY the amount of food that is recommended (just true or false)
-6. Log to the console whether there is any dog eating an OKAY amount of food (just true or false)
-7. Create an array containing the dogs that are eating an OKAY amount of food (try to reuse the condition used in 6.)
-8. Create a shallow copy of the dogs array and sort it by recommended food portion in an ascending order (keep in mind that the portions are inside the array's objects)
-
-HINT 1: Use many different tools to solve these challenges, you can use the summary lecture to choose between them 😉
-HINT 2: Being within a range 10% above and below the recommended portion means: current > (recommended * 0.90) && current < (recommended * 1.10). Basically, the current portion should be between 90% and 110% of the recommended portion.
-
-TEST DATA:
-const dogs = [
-  { weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
-  { weight: 8, curFood: 200, owners: ['Matilda'] },
-  { weight: 13, curFood: 275, owners: ['Sarah', 'John'] },
-  { weight: 32, curFood: 340, owners: ['Michael'] }
-];
-
-GOOD LUCK 😀
-*/
-
-/*
-const dogs = [
-  { weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
-  { weight: 8, curFood: 200, owners: ['Matilda'] },
-  { weight: 13, curFood: 275, owners: ['Sarah', 'John'] },
-  { weight: 32, curFood: 340, owners: ['Michael'] },
-];
-
-// 1.
-dogs.forEach(dog => (dog.recFood = Math.trunc(dog.weight ** 0.75 * 28)));
-
-// 2.
-const dogSarah = dogs.find(dog => dog.owners.includes('Sarah'));
-console.log(dogSarah);
-console.log(
-  `Sarah's dog is eating too ${
-    dogSarah.curFood > dogSarah.recFood ? 'much' : 'little'
-  } `
-);
-
-// 3.
-const ownersEatTooMuch = dogs
-  .filter(dog => dog.curFood > dog.recFood)
-  .flatMap(dog => dog.owners);
-// .flat();
-console.log(ownersEatTooMuch);
-
-const ownersEatTooLittle = dogs
-  .filter(dog => dog.curFood < dog.recFood)
-  .flatMap(dog => dog.owners);
-console.log(ownersEatTooLittle);
-
-// 4.
-// "Matilda and Alice and Bob's dogs eat too much!"
-//  "Sarah and John and Michael's dogs eat too little!"
-console.log(`${ownersEatTooMuch.join(' and ')}'s dogs eat too much!`);
-console.log(`${ownersEatTooLittle.join(' and ')}'s dogs eat too little!`);
-
-// 5.
-console.log(dogs.some(dog => dog.curFood === dog.recFood));
-
-// 6.
-// current > (recommended * 0.90) && current < (recommended * 1.10)
-const checkEatingOkay = dog =>
-  dog.curFood > dog.recFood * 0.9 && dog.curFood < dog.recFood * 1.1;
-
-console.log(dogs.some(checkEatingOkay));
-
-// 7.
-console.log(dogs.filter(checkEatingOkay));
-
-// 8.
-// sort it by recommended food portion in an ascending order [1,2,3]
-const dogsSorted = dogs.slice().sort((a, b) => a.recFood - b.recFood);
-console.log(dogsSorted);
-*/
-
-const dogs = [
-  { weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
-  { weight: 8, curFood: 200, owners: ['Matilda'] },
-  { weight: 13, curFood: 275, owners: ['Sarah', 'John'] },
-  { weight: 32, curFood: 340, owners: ['Michael'] },
-];
-//1
-dogs.forEach(dog => (dog.recFood = Math.trunc(dog.weight ** 0.75 * 28)));
-console.log(dogs);
-//2
-const dogSarah = dogs.find(dog => dog.owners.includes('Sarah'));
-console.log(
-  `SArah's dog is eating too ${
-    dogSarah.curFood > dogSarah.recFood ? 'much' : 'little'
-  }`
-);
-//3
-const ownersEatTooMuch = dogs
-  .filter(dog => dog.curFood > dog.recFood)
-  .flatMap(dog => dog.owners);
-console.log(ownersEatTooMuch);
-
-const ownersEatTooLittle = dogs
-  .filter(dog => dog.curFood < dog.recFood)
-  .flatMap(dog => dog.owners);
-console.log(ownersEatTooMuch);
-//4
-console.log(`${ownersEatTooMuch.join(' and ')}'s dogs eat too much!`);
-console.log(`${ownersEatTooLittle.join(' and ')}'s dogs eat too little!`);
-//5
-console.log(dogs.some(dog => dog.curFood === dog.recFood));
-
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
-// LECTURES
-
-/////TEST-------------------------------------------
-// const arrs = [2, 5, 8, 4];
-
-// const firstMap = arrs.map(el => el * 3);
-// console.log(firstMap);
-
-// const secondForEach = arrs.forEach(el => el * 4);
-
-// console.log(firstMap, secondForEach);
-// console.log('------flatten array-------');
-// let carr = [
-//   [1, 2],
-//   [3, 4],
-//   [5, 6, [7, 8], 9],
-//   [10, 11, 12],
-// ];
-// let flattened = carr.flat(2);
-// console.log(flattened);
-//----------------------------------------------
-
-// const currencies = new Map([
-//   ['USD', 'United States dollar'],
-//   ['EUR', 'Euro'],
-//   ['GBP', 'Pound sterling'],
-// ]);
-
-//const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
-
-//CODING CHALLENGE
-console.log('-----CODING CHALLENGE ----');
-
-const calsAverageHumanAge = ages =>
-  ages
-    .map(age => (age <= 2 ? 2 * age : 16 + age * 4))
-    .filter(age => age >= 18)
-    .reduce((acc, age, i, arr) => acc + age / arr.length, 0);
-
-const avg1 = calsAverageHumanAge([5, 2, 4, 1, 15, 8, 3]);
-const avg2 = calsAverageHumanAge([16, 6, 10, 5, 6, 1, 4]);
-
-console.log(avg1, avg2);
-
-/////////////////////////////////////////////////
-
-//slice method ---------- it just copied the array
-console.log('---slice method---');
-let arr = ['a', 'b', 'c', 'd', 'e'];
-console.log(arr.slice(2));
-console.log(arr.slice(2, 4));
-console.log(arr.slice(-2));
-console.log(arr.slice(-1));
-console.log(arr.slice(1, -2));
-//spred operator
-console.log([...arr]);
-//splice method   ----- it takes of the items from array for good
-
-//REVERSE method -----reverse the array for good
-arr = ['a', 'b', 'c', 'd', 'e'];
-const arr2 = ['j', 't', 'i', 'd'];
-console.log(arr2.reverse());
-
-//CONCAT -------split smth together
-const letters = arr.concat(arr2);
-console.log(letters);
-///the same thing as below
-console.log([...arr, ...arr2]);
-
-//JOIN   ------ adds smth you want
-console.log(letters.join('-'));
-
-//new 'at method'
-console.log('---new at method---');
-const arrr = [23, 11, 64];
-console.log(arrr[0]);
-console.log(arrr.at(0));
-
-//to pick the last element
-console.log(arrr[arrr.length - 1]);
-console.log(arrr.slice(-1)[0]);
-console.log(arrr.at(-1));
-
-//////////LOOPING ARRAY FOR EACH
+// BANKIST APP
 console.log('---for loop----');
 
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
@@ -244,32 +39,6 @@ const currenciesUnique = new Set(['USD', 'EUR', 'GBP', 'GBP']);
 currenciesUnique.forEach(function (value, _, map) {
   console.log(`${value}:${value}`);
 });
-
-///new challenge
-console.log('---new challenge---');
-
-const checkDogs = function (dogsJulia, dogsKate) {
-  const dogsJuliaCorrected = dogsJulia.slice();
-
-  dogsJuliaCorrected.splice(0, 1);
-  dogsJuliaCorrected.splice(-2);
-  const dogs = dogsJuliaCorrected.concat(dogsKate);
-  console.log(dogs);
-  dogs.forEach(function (dog, i) {
-    if (dog >= 3) {
-      console.log(`Dog number ${i + 1} is an adult, and is ${dog} years old `);
-    } else {
-      console.log(`Dog number ${i + 1} is still a puppy`);
-    }
-  });
-};
-
-checkDogs([3, 5, 2, 12, 7], [4, 1, 15, 8, 3]);
-console.log('-----project----');
-
-/////////////////////////////////////////////////
-/////////////////////////////////////////////////
-// BANKIST APP
 
 ////-----MAP----
 console.log('-----MAP----');
@@ -682,3 +451,18 @@ const sums = accounts
     },
     { deposits: 0, withdrawals: 0 }
   );
+
+///NUMBERS
+console.log('----  ///NUMBERS----');
+
+//Conversion
+console.log(Number('23'));
+//the same result other way
+console.log(+'23');
+
+//Parsing
+console.log(Number.parseInt('30px')); //finds numbers in a string =30
+console.log(Number.parseInt('30px', 10)); //10 is 2nd argument, means it should be a number from 0 to 10.
+//if you right 2 as an argument, you should expect binary number 2-01
+
+console.log(Number.parseInt('px30')); //if letters in front = NaN
