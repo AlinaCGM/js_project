@@ -195,7 +195,7 @@ btnLogin.addEventListener('click', function (e) {
 });
 btnTransfer.addEventListener('click', function (e) {
   e.preventDefault();
-  const amount = Number(inputTransferAmount.value);
+  const amount = Math.trunc(inputTransferAmount.value);
   const receiverAcc = accounts.find(
     acc => acc.username === inputTransferTo.value
   );
@@ -215,7 +215,7 @@ btnTransfer.addEventListener('click', function (e) {
 
 btnLoan.addEventListener('click', function (e) {
   e.preventDefault();
-  const amount = Number(inputLoanAmount.value);
+  const amount = Math.trunc(inputLoanAmount.value);
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
     //Add movement
     currentAccount.movements.push(amount);
@@ -265,7 +265,7 @@ const calcDisplaySummary = function (acc) {
     .map(deposit => (deposit * acc.interestRate) / 100)
     .filter((int, i, arr) => int >= 1)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumInterest.textContent = `${interest}€`;
+  labelSumInterest.textContent = `${interest.toFixed(2)}€`;
 };
 // FILTER METHOD
 console.log('---FILTER METHOD-----');
@@ -472,3 +472,38 @@ console.log(Number.isNaN(20)); //false
 console.log(Number.isNaN(20 / 0)); //not allowed
 //check if value is number
 console.log(Number.isFinite(20));
+console.log(Number.isInteger(+'18'));
+///-----MATH AND ROUNDING
+console.log('-----///-----MATH AND ROUNDING------');
+console.log(Math.sqrt(25));
+console.log(25 ** (1 / 2)); //the same as above
+console.log(8 ** (1 / 3)); //cub
+
+//Math.max
+console.log(Math.max(25, 2, 5, 9, 7, 11));
+//the same result with string
+console.log(Math.max('25', 2, 5, 9, 7, 11));
+console.log(Math.min(25, 2, 5, 9, 7, 11));
+
+//calculate the are of the circle with radius of 10px
+console.log(Math.PI * parseFloat('10px') ** 2);
+
+//ROUNDING
+console.log(Math.trunc(21.6)); //round down
+//and the same
+console.log(Math.round(21.3)); //round to the nearest
+console.log(Math.ceil(21.3)); //round up
+console.log(Math.floor(21.9)); //round down
+//with negative numbers
+console.log(Math.trunc(-10.6)); //round down
+
+console.log(Math.floor(-10.3)); //round up
+
+//Rounding decimals
+console.log((2.7).toFixed(0)); //returns a string all the time
+console.log((2.7).toFixed(3)); //cl = 2.700
+//to convert it to number add a plus
+console.log(+(2.7).toFixed(3)); //became a number
+
+//Remainder operator
+console.log('---Remainder operator----');
