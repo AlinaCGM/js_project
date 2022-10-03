@@ -465,4 +465,10 @@ console.log(Number.parseInt('30px')); //finds numbers in a string =30
 console.log(Number.parseInt('30px', 10)); //10 is 2nd argument, means it should be a number from 0 to 10.
 //if you right 2 as an argument, you should expect binary number 2-01
 
-console.log(Number.parseInt('px30')); //if letters in front = NaN
+console.log(Number.parseInt('px28 ')); //if letters in front = NaN
+console.log(Number.parseFloat('2.3ps ')); //if letters in front = NaN
+//parse.Float('2.5 rem')
+console.log(Number.isNaN(20)); //false
+console.log(Number.isNaN(20 / 0)); //not allowed
+//check if value is number
+console.log(Number.isFinite(20));
