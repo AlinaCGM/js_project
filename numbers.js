@@ -77,6 +77,18 @@ const account1 = {
   movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
   interestRate: 1.2, // %
   pin: 1111,
+  movementsDates: [
+    '2019-11-18T21:31:17.178Z',
+    '2019-12-23T07:42:02.383Z',
+    '2020-01-28T09:15:04.904Z',
+    '2020-04-01T10:17:24.185Z',
+    '2020-05-08T14:11:59.604Z',
+    '2020-07-26T17:01:17.194Z',
+    '2020-07-28T23:36:17.929Z',
+    '2020-08-01T10:51:36.790Z',
+  ],
+  currency: 'EUR',
+  locale: 'pt-PT',
 };
 
 const account2 = {
@@ -84,6 +96,18 @@ const account2 = {
   movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
   interestRate: 1.5,
   pin: 2222,
+  movementsDates: [
+    '2019-11-18T21:31:17.178Z',
+    '2019-12-23T07:42:02.383Z',
+    '2020-01-28T09:15:04.904Z',
+    '2020-04-01T10:17:24.185Z',
+    '2020-05-08T14:11:59.604Z',
+    '2020-07-26T17:01:17.194Z',
+    '2020-07-28T23:36:17.929Z',
+    '2020-08-01T10:51:36.790Z',
+  ],
+  currency: 'EUR',
+  locale: 'en-US',
 };
 
 const account3 = {
@@ -128,16 +152,48 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
-const displayMovements = function (movements) {
+//
+const formatMovementDate = function (date, locale) {
+  const calcDaysPassed = (date1, date2) =>
+    Math.round(Math.abs(date2 - date1) / (1000 * 60 * 60 * 24));
+
+  const daysPassed = calcDaysPassed(new Date(), date);
+  console.log(daysPassed);
+
+  if (daysPassed === 0) return 'Today';
+  if (daysPassed === 1) return 'Yesterday';
+  if (daysPassed <= 7) return `${daysPassed} days ago`;
+
+  // const day = `${date.getDate()}`.padStart(2, 0);
+  // const month = `${date.getMonth() + 1}`.padStart(2, 0);
+  // const year = date.getFullYear();
+  // return `${day}/${month}/${year}`;
+  return new Intl.DateTimeFormat(locale).format(date);
+};
+///
+const displayMovements = function (acc, sort = true) {
   containerMovements.innerHTML = ''; //removes all previous HTML
   //OR .textContent=0
-  movements.forEach(function (mov, i) {
+  const movs = sort
+    ? acc.movements.slice().sort((a, b) => a - b)
+    : acc.movements;
+  movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
+    const date = new Date(acc.movementsDates[i]);
+    const day = `${date.getDate()}`.padStart(2, 0);
+    const month = `${date.getMonth() + 1}`.padStart(2, 0); //index starts from 0!!!
+    const hour = `${date.getHours()}`.padStart(2, 0);
+    const min = `${date.getMinutes()}`.padStart(2, 0);
+    const year = date.getFullYear();
+
+    const displayDate = `${day}/${month}/${year}, ${hour}:${min}`;
+
     const html = `
     <div class="movements__row">
     <div class="movements__type movements__type--${type}">${
       i + 1
     }${type} £</div>
+    <div class="movements__date">${displayDate}</div>
     <div class="movements__value">${mov}€</div>
     </div>`;
     containerMovements.insertAdjacentHTML('afterbegin', html); //adds new HTML, WHICH we just corrected from our existed HTML
@@ -163,7 +219,7 @@ createUsernames(accounts);
 // UPDATE UI
 const updateUI = function (acc) {
   // Display movements
-  displayMovements(acc.movements);
+  displayMovements(acc);
 
   //DisplaY BALANCE
   calcDisplayBalance(acc);
@@ -186,6 +242,16 @@ btnLogin.addEventListener('click', function (e) {
       currentAccount.owner.split(' ')[0]
     }`;
     containerApp.style.opacity = 100;
+
+    //Create current date and time
+    const now = new Date();
+    const day = `${now.getDate()}`.padStart(2, 0);
+    const month = `${now.getMonth() + 1}`.padStart(2, 0);
+    const year = now.getFullYear();
+    const hour = `${now.getHours()}`.padStart(2, 0);
+    const min = `${now.getMinutes()}`.padStart(2, 0);
+    labelDate.textContent = `${day}/${month}/${year}, ${hour}:${min}`;
+
     //Clear input fields
     inputLoginUsername.value = inputLoginPin.value = '';
     inputLoginPin.blur();
@@ -206,8 +272,13 @@ btnTransfer.addEventListener('click', function (e) {
     currentAccount.balance >= amount &&
     receiverAcc?.username !== currentAccount.username
   ) {
+    //Doing the transfer
     currentAccount.movements.push(-amount);
     receiverAcc.movements.push(amount);
+    //Add transfer date
+    currentAccount.movementsDates.push(new Date().toISOString());
+    receiverAcc.movementsDate.push(new Date());
+
     //Update UI
     updateUI(currentAccount);
   }
@@ -219,6 +290,8 @@ btnLoan.addEventListener('click', function (e) {
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
     //Add movement
     currentAccount.movements.push(amount);
+    //Add transfer date
+    currentAccount.movementsDates.push(new Date().toISOString());
     //Update UI
     updateUI(currentAccount);
     //CLEAR FIELD
@@ -505,5 +578,59 @@ console.log((2.7).toFixed(3)); //cl = 2.700
 //to convert it to number add a plus
 console.log(+(2.7).toFixed(3)); //became a number
 
-//Remainder operator
+//Remainder operator is %
 console.log('---Remainder operator----');
+console.log(5 % 2);
+console.log(5 / 2);
+
+// function divide(num1, num2) {
+//   if (num2 === 0) {
+//     return 'not allowed';
+//   }
+//   return num1 / num2;
+// }
+// console.log(divide(2, 0));
+
+// function count(alina) {
+//   const a = alina.length;
+// }
+
+// console.log(a);
+
+const isEven = n => n % 2 === 0;
+console.log(isEven(524));
+
+//back to APP
+labelBalance.addEventListener('click', function () {
+  [...document.querySelectorAll('.movements_row')].forEach(function (row, i) {
+    if (i % 2 === 0) row.style.backgroundColor = 'green';
+    if (i % 3 === 0) row.style.backgroundColor = 'blue';
+  });
+});
+
+//Date and Times
+
+//const now = new Date();
+// console.log(now);
+
+//back to app
+//fake always logged in
+currentAccount = account1;
+updateUI(currentAccount);
+containerApp.style.opacity = 100;
+//Experimenting API
+const now = new Date();
+const options = {
+  hour: 'numeric',
+  minute: 'numeric',
+  day: 'numeric',
+  month: 'long', // or 'numeric', or '2-digit'
+  weekday: 'long',
+};
+const locale = navigator.language; //instead of 'locale' could be used ('en-US')
+labelDate.textContent = new Intl.DateTimeFormat(
+  currentAccount.locale,
+  options
+).format(now);
+//setting the Date
+//const now = new Date();
