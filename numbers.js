@@ -171,6 +171,13 @@ const formatMovementDate = function (date, locale) {
   return new Intl.DateTimeFormat(locale).format(date);
 };
 ///
+const formatCur = function (value, locale, currency) {
+  return new Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency: currency,
+  }).format(value);
+};
+////////
 const displayMovements = function (acc, sort = true) {
   containerMovements.innerHTML = ''; //removes all previous HTML
   //OR .textContent=0
@@ -634,3 +641,12 @@ labelDate.textContent = new Intl.DateTimeFormat(
 ).format(now);
 //setting the Date
 //const now = new Date();
+
+//Internationalizing numbers
+console.log('----//Internationalizing numbers---');
+const num = 3884764.23;
+console.log('US:', new Intl.NumberFormat('en-US').format(num));
+console.log('Germany:', new Intl.NumberFormat('de-DE').format(num));
+
+//setTimeout
+console.log('---//setTimeout----');
