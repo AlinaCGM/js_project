@@ -648,5 +648,26 @@ const num = 3884764.23;
 console.log('US:', new Intl.NumberFormat('en-US').format(num));
 console.log('Germany:', new Intl.NumberFormat('de-DE').format(num));
 
-//setTimeout
+//setTimeout //executes just once!!!
 console.log('---//setTimeout----');
+//setTimeout(() => console.log('Here is your pizza'), 3000);
+console.log('Waiting..');
+// setTimeout(
+//   (ing1, ing2) => console.log(`Here is your pizza with ${ing1} and ${ing2}`),
+//   3000,F
+//   'olives',
+//   'spinach'
+// );
+const ingredients = ['olives', 'spinach'];
+const pizzaTimer = setTimeout(
+  (ing1, ing2) => console.log(`Here is your pizza with ${ing1} and ${ing2}`),
+  3000,
+  ...ingredients
+);
+if (ingredients.includes('spinach')) clearTimeout(pizzaTimer);
+
+//setInterval
+setInterval(function () {
+  const now = new Date();
+  console.log(now);
+}, 6000);
