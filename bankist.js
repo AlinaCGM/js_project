@@ -17,6 +17,10 @@ const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
+const nav = document.querySelector('.nav');
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
 
 const openModal = function () {
   modal.classList.remove('hidden');
@@ -69,55 +73,82 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
   }
 });
 ///////////////////////////
+//-----------------------Tabbed component-------------
+
+tabsContainer.addEventListener('click', function (e) {
+  const clicked = e.target.closest('.operations__tab');
+  //Guard cause
+  if (!clicked) return;
+  //Remove active classes
+  tabs.forEach(t => t.classList.remove('operations__tab--active'));
+  tabsContent.forEach(c => c.classList.remove('operations__content--active'));
+  //Activate tab
+  clicked.classList.add('operations__tab--active');
+  //Activate content area
+  document
+    .querySelector(`.operations__content--${clicked.dataset.tab}`)
+    .classList.add('operations__content--active');
+});
+//
+//-----------------Menu fade animation---------------
+nav.addEventListener('mouseover', function (e) {
+  if (e.target.classList.contain('nav__link')) {
+    const link = e.target;
+  }
+});
+nav.addEventListener('mouseout', function (e) {});
+//
+//
+//////////////////////////////////
 //  ------------------------LESSON--------------------
-//Selecting elements
-console.log(document.documentElement);
-console.log(document.head);
-console.log(document.body);
-const header = document.querySelector('.header');
-const allSections = document.querySelectorAll('.section');
-console.log(allSections);
-document.getElementById('section--1');
-const allButtons = document.getElementsByTagName('button');
-console.log(allButtons);
-document.getElementsByClassName('btn');
+// //Selecting elements
+// console.log(document.documentElement);
+// console.log(document.head);
+// console.log(document.body);
+// const header = document.querySelector('.header');
+// const allSections = document.querySelectorAll('.section');
+// console.log(allSections);
+// document.getElementById('section--1');
+// const allButtons = document.getElementsByTagName('button');
+// console.log(allButtons);
+// document.getElementsByClassName('btn');
 
-//Creating and inserting elements
-//.insertAdjacentHTML
+// //Creating and inserting elements
+// //.insertAdjacentHTML
 
-const message = document.createElement('div'); //  1! 'message' is object which represent DOM element
-message.classList.add('cookie-message'); // 2!! added a class to this div
-//message.textContent = 'We use cookies for improved functionality and analytics';
-message.innerHTML = //  3!! wrote some text inside
-  'We use cookies for improved functionality and analytics. <button class="btn btn--close-cookie">Got it!</button>';
-header.prepend(message); //   4!! added it before header ,as a first child
-//header.append(message); //   5!! OR at the end of header ,as a last child
+// const message = document.createElement('div'); //  1! 'message' is object which represent DOM element
+// message.classList.add('cookie-message'); // 2!! added a class to this div
+// //message.textContent = 'We use cookies for improved functionality and analytics';
+// message.innerHTML = //  3!! wrote some text inside
+//   'We use cookies for improved functionality and analytics. <button class="btn btn--close-cookie">Got it!</button>';
+// header.prepend(message); //   4!! added it before header ,as a first child
+// //header.append(message); //   5!! OR at the end of header ,as a last child
 
-//We CAN ALSO CLONE the message in order to add it in many places,
-//EXAMPLE:
-header.append(message.cloneNode(true));
-//and 2 more methods:
-// header.before(message);
-// header.after(message);
-//-------DElete element--------
-document
-  .querySelector('.btn--close-cookie')
-  .addEventListener('click', function () {
-    message.remove();
-  });
+// //We CAN ALSO CLONE the message in order to add it in many places,
+// //EXAMPLE:
+// header.append(message.cloneNode(true));
+// //and 2 more methods:
+// // header.before(message);
+// // header.after(message);
+// //-------DElete element--------
+// document
+//   .querySelector('.btn--close-cookie')
+//   .addEventListener('click', function () {
+//     message.remove();
+//   });
 
-//styles
-message.style.backgroundColor = '#37383d';
-message.style.width = '1200%';
+// //styles
+// message.style.backgroundColor = '#37383d';
+// message.style.width = '1200%';
 
-//change the css property. ('was this','changed to this')
-document.documentElement.style.setProperty('--color-primary', 'orangered');
+// //change the css property. ('was this','changed to this')
+// document.documentElement.style.setProperty('--color-primary', 'orangered');
 
-//Attributes
-const logo = document.querySelector('.nav__logo');
-console.log(logo.alt);
-console.log(logo.src); ///absolute link
-console.log(logo.getAttribute('src')); // relative link
+// //Attributes
+// const logo = document.querySelector('.nav__logo');
+// console.log(logo.alt);
+// console.log(logo.src); ///absolute link
+// console.log(logo.getAttribute('src')); // relative link
 
 ////---------------- SMOTH SCROLL --------------
 
@@ -185,3 +216,23 @@ console.log(logo.getAttribute('src')); // relative link
 // });
 
 //------------------Dom Traversing ------
+
+// const h1 = document.querySelector('h1');
+// //------------------------------Going downwards: child
+// console.log(h1.querySelectorAll('.highlight'));
+// console.log(h1.childNodes); //all the elements inside it
+// console.log(h1.children); //just direct children
+// h1.firstElementChild.style.color = 'white';
+// h1.lastElementChild.style.color = 'orangered';
+// //------------------------------Going upwards: parents
+// console.log(h1.parentNode);
+// console.log(h1.parentElement);
+// h1.closest('.header').style.background = 'var(--gradient-secondary)';
+// h1.closest('h1').style.background = 'var(--gradient-primary)';
+// //------------------------------Going sideway: siblings
+// console.log(h1.previousElementSibling);
+// console.log(h1.nextElementSibling);
+// console.log(h1.parentElement.children);
+// [...h1.parentElement.children].forEach(function (el) {
+//   if (el !== h1) el.style.transform = 'scale(0.5)';
+// });
