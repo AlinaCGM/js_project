@@ -410,3 +410,15 @@ slider();
 // [...h1.parentElement.children].forEach(function (el) {
 //   if (el !== h1) el.style.transform = 'scale(0.5)';
 // });
+
+//----------------Lifecycle DOM Events----------------
+document.addEventListener('DOMContentLoaded', function (e) {
+  console.log('HTML tratatata', e);
+});
+window.addEventListener('load', function (e) {
+  console.log('Page fully loaded', e);
+});
+// window.addEventListener('beforeunload', function (e) {
+//   e.preventDefault();
+//   e.returnValue = '';
+// });
